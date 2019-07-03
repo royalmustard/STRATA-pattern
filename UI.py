@@ -1,5 +1,10 @@
 from tkinter import filedialog as df
 
+
 class UI:
-	def getPath(self):
+
+	def __init__(self):
+		pass
+
+	def get_path(self):
 		return df.askopenfilename()

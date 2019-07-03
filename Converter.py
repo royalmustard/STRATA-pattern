@@ -23,7 +23,7 @@ class Converter:
         new_image.save(self.image.filename.split(".")[0]+".bmp")
 
     def convert_image_to_streamfile(self):
-        """DO NOT USE, calculations cannot be made"""
+        """DO NOT USE, calculations cannot be made. DISCOUNTINIUED"""
 
         streamfile = open(self.image.filename.split(".")[0]+".stf", "wb+")
         width, height = self.img.size
