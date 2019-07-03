@@ -9,7 +9,7 @@ def main(args=None):
 
     ui = UI.UI
     conv = Converter.Converter
-    conv.load_image(ui.getPath())
+    conv.load_image(ui.get_path())
     conv.convert_image_to_bmp()
 
 
