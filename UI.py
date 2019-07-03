@@ -1,4 +1,5 @@
 from tkinter import filedialog as df
 
-file_path = df.askopenfilename()
-print(file_path)
+class UI:
+	def getPath(self):
+		return df.askopenfilename()
