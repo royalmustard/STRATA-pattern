@@ -7,8 +7,8 @@ def main(args=None):
     if args is None:
         args = sys.argv[1:]
 
-    ui = UI.UI
-    conv = Converter.Converter
+    ui = UI.UI()
+    conv = Converter.Converter()
     conv.load_image(ui.get_path())
     conv.convert_image_to_bmp()
 

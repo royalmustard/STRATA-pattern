@@ -7,20 +7,22 @@ class Converter:
 
     def __init__(self):
         self.image = None
+        self.name = ""
 
     def load_image(self, filename):
-        self.image = Image.load(filename)
+        self.image = Image.open(filename)
+        self.name = filename.split(".")[0]
         self.image = self.image.convert("L")
 
     def convert_image_to_bmp(self):
-        width, height = self.img.size
+        width, height = self.image.size
         new_image = Image.new("RGB", (width, height), color=(0, 0, 0))
-        for x in width:
-            for y in height:
+        for x in range(width):
+            for y in range(height):
                 grey = self.image.getpixel((x, y))
                 if grey != 255:
                     new_image.putpixel((x, y), (0, 1, 255-grey))
-        new_image.save(self.image.filename.split(".")[0]+".bmp")
+        new_image.save(self.name+".bmp")
 
     def convert_image_to_streamfile(self):
         """DO NOT USE, calculations cannot be made. DISCOUNTINIUED"""
