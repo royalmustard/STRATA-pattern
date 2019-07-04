@@ -8,9 +8,9 @@ class Converter:
     def __init__(self):
         self.image = None
         self.name = ""
-        self.out_name=""
         self.grayscale = None
         self.final = None
+        self.threshold = 0
 
     def load_image(self, filename):
         self.image = Image.open(filename)
@@ -22,14 +22,13 @@ class Converter:
         new_image = Image.new("RGB", (width, height), color=(0, 0, 0))
         for x in range(width):
             for y in range(height):
-                grey = self.image.getpixel((x, y))
-                if grey != 255:
+                grey = self.grayscale.getpixel((x, y))
+                if grey < 255-self.threshold:
                     new_image.putpixel((x, y), (0, 1, 255-grey))
         self.final = new_image
 
-
-    def save_image(self):
-        self.final.save(self.out_name)
+    def save_image(self, filename):
+        self.final.save(filename)
 
     def convert_image_to_streamfile(self):
         """DO NOT USE, calculations cannot be made. DISCOUNTINIUED"""
