@@ -1,5 +1,5 @@
 import sys
-import Converter, UI
+import UI
 
 
 def main(args=None):
@@ -8,9 +8,7 @@ def main(args=None):
         args = sys.argv[1:]
 
     ui = UI.UI()
-    conv = Converter.Converter()
-    conv.load_image(ui.get_path())
-    conv.convert_image_to_bmp()
+
 
 
 if __name__ == "__main__":
