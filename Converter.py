@@ -1,6 +1,6 @@
 from PIL import Image
 
-#RGB irrelevant | on/off | dwelltime 1(min) - 255(Max in software configuration)
+#RGB: irrelevant | on/off | dwelltime 1(min) - 255(Max in software configuration)
 
 
 class Converter:
