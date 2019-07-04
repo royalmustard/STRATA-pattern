@@ -8,11 +8,14 @@ class Converter:
     def __init__(self):
         self.image = None
         self.name = ""
+        self.out_name=""
+        self.grayscale = None
+        self.final = None
 
     def load_image(self, filename):
         self.image = Image.open(filename)
         self.name = filename.split(".")[0]
-        self.image = self.image.convert("L")
+        self.grayscale = self.image.convert("L")
 
     def convert_image_to_bmp(self):
         width, height = self.image.size
@@ -22,7 +25,11 @@ class Converter:
                 grey = self.image.getpixel((x, y))
                 if grey != 255:
                     new_image.putpixel((x, y), (0, 1, 255-grey))
-        new_image.save(self.name+".bmp")
+        self.final = new_image
+
+
+    def save_image(self):
+        self.final.save(self.out_name)
 
     def convert_image_to_streamfile(self):
         """DO NOT USE, calculations cannot be made. DISCOUNTINIUED"""

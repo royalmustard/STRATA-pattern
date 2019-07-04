@@ -16,20 +16,38 @@ class UI:
 
 		self.in_filename = StringVar()
 		self.in_image = None
-		self.out_filename = ""
+		self.out_filename = StringVar()
+		self.out_image = None
+		self.threshold = IntVar()
 
 		ttk.Label(self.frame, text="Input file").grid(row=1, column=1, sticky=N)
-		ttk.Entry(self.frame, textvariable=self.in_filename, width=50).grid(row=2, column=1, sticky=N)
-		ttk.Button(self.frame, command=self.get_path, text="Open file").grid(row=3, column=1, sticky=N)
+		ttk.Entry(self.frame, textvariable=self.in_filename, width=50).grid(row=3, column=1, sticky=N)
+		ttk.Button(self.frame, command=self.get_path, text="Open file").grid(row=4, column=1, sticky=N)
 		self.cnv_in_image = Canvas(self.frame, width=300, height=300)
-		self.cnv_in_image.grid(row=1, column=3, sticky=N)
+		self.cnv_in_image.grid(row=2, column=1, sticky=N)
 
-		self.get_path()
+		ttk.Label(self.frame, text="Output file").grid(row=1, column=2, sticky=N)
+		ttk.Entry(self.frame, textvariable=self.out_filename, width=50).grid(row=3, column=2, sticky=N)
+		ttk.Button(self.frame, command=self.get_output_filename, text="Set output file").grid(row=4, column=2, sticky=N)
+		self.cnv_out_image = Canvas(self.frame, width=300, height=300)
+		self.cnv_out_image.grid(row=2, column=2, sticky=N)
+
+		ttk.Label(self.frame, text="Filter threshold").grid(row=5, column=1, sticky=N)
+		ttk.Scale(self.frame, from_=0, to=254, orient=HORIZONTAL, length=280).grid(row=5, column=2, sticky=N)
+
+		ttk.Button(self.frame, command=self.convert, text="Convert image").grid(row=6, column=1, columnspan=2, sticky=N)
 
 		self.frame.mainloop()
 
 	def get_path(self):
 		self.in_filename.set(df.askopenfilename())
 		self.in_image = Image.open(self.in_filename.get())
+		self.in_image = self.in_image.resize((300, 300), Image.ANTIALIAS)
 		self.in_image = ImageTk.PhotoImage(self.in_image)
 		self.cnv_in_image.create_image((0, 0), anchor=NW, image=self.in_image)
+
+	def get_output_filename(self):
+		self.out_filename.set(df.asksaveasfilename())
+
+	def convert(self):
+		pass
