@@ -1,5 +1,5 @@
 from PIL import Image
-
+import time
 #RGB: irrelevant | on/off | dwelltime 1(min) - 255(Max in software configuration)
 
 
@@ -18,13 +18,18 @@ class Converter:
         self.grayscale = self.image.convert("L")
 
     def convert_image_to_bmp(self):
+        gs = self.grayscale
+        th = self.threshold
         width, height = self.image.size
         new_image = Image.new("RGB", (width, height), color=(0, 0, 0))
+        start = time.time()
         for x in range(width):
             for y in range(height):
-                grey = self.grayscale.getpixel((x, y))
-                if grey < 255-self.threshold:
+                grey =gs.getpixel((x, y))
+                if grey < 255-th:
                     new_image.putpixel((x, y), (0, 1, 255-grey))
+        end = time.time()
+        print(end-start)
         self.final = new_image
 
     def save_image(self, filename):

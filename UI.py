@@ -58,16 +58,17 @@ class UI:
 		self.conv.convert_image_to_bmp()
 
 		self.conv_image = self.conv.final
-		width, height = self.conv_image.size
-		self.out_image = Image.new("L", (width, height), color=255)
+		#width, height = self.conv_image.size
+		oi = Image.new("L", (300, 300), color=255)
 
-		for x in range(width):
-			for y in range(height):
-				r, g, b = self.conv_image.getpixel((x, y))
+		conv_im = self.conv_image.resize((300, 300), Image.ANTIALIAS)
+		for x in range(300):
+			for y in range(300):
+				r, g, b = conv_im.getpixel((x, y))
 				if g == 1:
-					self.out_image.putpixel((x, y), b)
+					oi.putpixel((x, y), b)
 
-		self.out_image = self.out_image.resize((300, 300), Image.ANTIALIAS)
+		self.out_image = oi
 		self.out_image = ImageTk.PhotoImage(self.out_image)
 		self.cnv_out_image.create_image((0, 0), anchor=NW, image=self.out_image)
 
