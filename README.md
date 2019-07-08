@@ -16,3 +16,5 @@ means a dwell time of around 100ns.
 <br>
 The program can also be used to convert regular images for patterning,
 however the scientific application of that is questionable.
+<br>
+For images it is recommended to use a beam current of 6.5 nA or above and a maximum depth of 0.1 to 0.2 microns.
