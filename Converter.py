@@ -25,7 +25,7 @@ class Converter:
         start = time.time()
         for x in range(width):
             for y in range(height):
-                grey =gs.getpixel((x, y))
+                grey = gs.getpixel((x, y))
                 if grey < 255-th:
                     new_image.putpixel((x, y), (0, 1, 255-grey))
         end = time.time()

@@ -1,14 +1,14 @@
 from tkinter import filedialog as df
-import Converter
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image
+import time
+import libSTRATAconv_rust as rconv
 
 
 class UI:
 
 	def __init__(self):
-		self.conv = Converter.Converter()
 		self.root = Tk()
 		self.root.title("STRATA pattern")
 		self.frame = Frame(self.root)
@@ -38,7 +38,7 @@ class UI:
 			.grid(row=5, column=2, sticky=N)
 
 		ttk.Button(self.frame, command=self.convert, text="Convert image").grid(row=6, column=1, sticky=N)
-		ttk.Button(self.frame, command=self.save, text="Save pattern bmp").grid(row=6, column=2, sticky=N)
+		ttk.Label(self.frame, text="Image is automatically saved upon conversion").grid(row=6, column=2, sticky=N)
 
 		self.frame.mainloop()
 
@@ -53,11 +53,19 @@ class UI:
 		self.out_filename.set(df.asksaveasfilename(defaultextension="bmp"))
 
 	def convert(self):
-		self.conv.load_image(self.in_filename.get())
-		self.conv.threshold = self.threshold.get()
-		self.conv.convert_image_to_bmp()
 
-		self.conv_image = self.conv.final
+		if self.out_filename.get() == "":
+			self.get_output_filename()
+
+		print(self.out_filename.get())
+		#self.conv.load_image(self.in_filename.get())
+		#self.conv.threshold = self.threshold.get()
+		#self.conv.convert_image_to_bmp()
+		start = time.time()
+		rconv.convert(self.in_filename.get(), self.out_filename.get(), self.threshold.get())
+		end = time.time()
+		print(end - start)
+		self.conv_image = Image.open(self.out_filename.get())
 		#width, height = self.conv_image.size
 		oi = Image.new("L", (300, 300), color=255)
 
@@ -68,11 +76,8 @@ class UI:
 				if g == 1:
 					oi.putpixel((x, y), b)
 
+
 		self.out_image = oi
 		self.out_image = ImageTk.PhotoImage(self.out_image)
 		self.cnv_out_image.create_image((0, 0), anchor=NW, image=self.out_image)
 
-	def save(self):
-		if self.out_filename.get() == "":
-			self.get_output_filename()
-		self.conv.save_image(self.out_filename.get())
