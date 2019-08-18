@@ -70,11 +70,14 @@ class UI:
 		oi = Image.new("L", (300, 300), color=255)
 
 		conv_im = self.conv_image.resize((300, 300), Image.ANTIALIAS)
-		for x in range(300):
-			for y in range(300):
-				r, g, b = conv_im.getpixel((x, y))
-				if g == 1:
-					oi.putpixel((x, y), b)
+		#for x in range(300):
+		#	for y in range(300):
+		#		r, g, b = conv_im.getpixel((x, y))
+		#		if g == 1:
+		#			oi.putpixel((x, y), b)
+
+		pixels = [b if g == 1 else 255 for r, g, b in conv_im.getdata()]
+		oi.putdata(pixels)
 
 
 		self.out_image = oi
